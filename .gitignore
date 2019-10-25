@@ -1,7 +1,9 @@
 *.gem
 *.rbc
 *.tar.gz
+*.log
 /.config
+/.vagrant
 /coverage/
 /InstalledFiles
 /pkg/
