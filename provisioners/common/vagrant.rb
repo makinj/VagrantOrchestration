@@ -1,15 +1,20 @@
 class VagrantHelper
-  def initialize(orch_path)
+  def initialize(orch_path, config)
     # Instance variables
     @orch_path = orch_path
-    end
-  def install()
-    if @engine_state
-      puts 'Engine is already Running'
-    else
-      @engine_state = true
-      puts 'Engine Idle'
-    end
+    @config = config
   end
+
+  def provisionscript(script)
+    @config.vm.provision "shell", path: @orch_path+"provisioners/"+script
+  end
+
 end
 
+def pre_install(helper)
+  helper.provisionscript("common/pre_install.sh")
+end
+
+def post_install(helper)
+  helper.provisionscript("common/post_install.sh")
+end
