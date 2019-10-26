@@ -3,7 +3,7 @@
 *.tar.gz
 *.log
 /.config
-/.vagrant
+.vagrant/
 /coverage/
 /InstalledFiles
 /pkg/
