@@ -8,6 +8,11 @@ class VagrantHelper
   def provisionscript(script)
     @config.vm.provision "shell", path: @orch_path+"provisioners/"+script
   end
+
+  def vm()
+    return @config.vm
+  end
+
   def vb()
     return @config.vm.provider "virtualbox"
   end
