@@ -1,28 +1,59 @@
 class VagrantHelper
-  def initialize(orch_path, config)
+  def initialize(vagrant, prov_path, config_path, vault_path, project_path)
     # Instance variables
-    @orch_path = orch_path
-    @config = config
+    @vagrant = vagrant
+    @prov_path = prov_path
+    @config_path = config_path
+    @vault_path = vault_path
+    @project_path = project_path
+    @home_path = "/home/vagrant"
   end
 
-  def provisionscript(script)
-    @config.vm.provision "shell", path: @orch_path+"provisioners/"+script
+
+  def run(mod_name, path, args=[])
+    @vagrant.vm.provision mod_name, type:"shell", path: path, args: args
+  end
+
+  def copy(src, dst)
+    if (File.exist?("C:/#{src}"))
+      @vagrant.vm.provision "file", source: src, destination: dst
+    else
+      puts "Could not find a file named: #{src} to copy to guest"
+    end
+  end
+
+  def copy_config(mod_name, path)
+    copy("#{@config_path}/#{mod_name}/#{path}","#{@home_path}/configs/#{mod_name}/#{path}")
+  end
+
+  def run_script(mod_name, path, args=[])
+    run(mod_name, "#{@prov_path}/#{mod_name}/#{path}",args)
+  end
+
+  def copy_script(mod_name, path)
+    copy("#{@prov_path}/#{mod_name}/#{path}","#{@home_path}/scripts/#{mod_name}/#{path}")
+  end
+
+  def copy_vault(mod_name, path)
+    copy("#{@vault_path}/#{mod_name}/#{path}","#{@home_path}/vault/#{mod_name}/#{path}")
   end
 
   def vm()
-    return @config.vm
+    return @vagrant.vm
   end
 
   def vb()
-    return @config.vm.provider "virtualbox"
+    return @vagrant.vm.provider "virtualbox"
   end
 
 end
 
 def pre_install(helper)
-  helper.provisionscript("common/pre_install.sh")
+  modname="common"
+  helper.run_script("common","pre_install.sh")
 end
 
 def post_install(helper)
-  helper.provisionscript("common/post_install.sh")
+  modname="common"
+  helper.run_script("common","post_install.sh")
 end

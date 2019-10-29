@@ -1,3 +1,4 @@
 def katoolin_install(helper)
-  helper.provisionscript("katoolin/install.sh")
+  modname="katoolin"
+  helper.run_script(modname, "install.sh")
 end

@@ -1,3 +1,4 @@
 def docker_install(helper)
-  helper.provisionscript("docker/install.sh")
+  modname="docker"
+  helper.run_script(modname, "install.sh")
 end

@@ -1,3 +1,4 @@
 def ethereum_install(helper)
-  helper.provisionscript("ethereum/install.sh")
+  modname="ethereum"
+  helper.run_script(modname, "install.sh")
 end

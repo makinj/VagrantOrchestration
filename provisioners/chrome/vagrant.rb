@@ -1,3 +1,4 @@
 def chrome_install(helper)
-  helper.provisionscript("chrome/install.sh")
+  modname="chrome"
+  helper.run_script(modname, "install.sh")
 end

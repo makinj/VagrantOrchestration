@@ -1,3 +1,4 @@
 def golang_install(helper)
-  helper.provisionscript("golang/install.sh")
+  modname="golang"
+  helper.run_script(modname, "install.sh")
 end

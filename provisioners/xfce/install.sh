@@ -2,13 +2,17 @@
 
 apt-get install -y virtualbox-guest-x11 xfce4 konsole thunar-archive-plugin
 
-# mkdir -p /home/vagrant/.config
-# tar -xzvf /home/vagrant/common/gui-config/config.tar.gz -C /
+home="/home/vagrant"
+once="$home/.once/xfce"
 
-# mkdir -p /usr/share/icons
-# tar -xzvf /home/vagrant/common/gui-config/icons.tar.gz -C  /
+configtar="$home/configs/xfce/config.tar.gz"
 
-# mkdir -p /usr/share/themes
-# tar -xzvf /home/vagrant/common/gui-config/themes.tar.gz -C /
+if [ -n -f "$once" ]; then
+  echo 'if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then exec startx; fi' >> "$home/.bash_profile"
 
-echo 'if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then exec startx; fi' >> /home/vagrant/.bash_profile
+  if [ -f "$configtar" ]; then
+    $home/scripts/xfce/restore.sh "$configtar";
+  fi
+
+  touch oncefile;
+fi

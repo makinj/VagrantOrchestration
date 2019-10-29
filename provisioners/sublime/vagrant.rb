@@ -1,3 +1,4 @@
 def sublime_install(helper)
-  helper.provisionscript("sublime/install.sh")
+  modname="sublime"
+  helper.run_script(modname, "install.sh")
 end
