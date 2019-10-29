@@ -10,8 +10,8 @@ class VagrantHelper
   end
 
 
-  def run(mod_name, path, args=[])
-    @vagrant.vm.provision mod_name, type:"shell", path: path, args: args
+  def run(name, path, args=[])
+    @vagrant.vm.provision name, type:"shell", path: path, args: args, env:{"HOME" => @home_path}
   end
 
   def copy(src, dst)
@@ -27,11 +27,13 @@ class VagrantHelper
   end
 
   def run_script(mod_name, path, args=[])
-    run(mod_name, "#{@prov_path}/#{mod_name}/#{path}",args)
+    run("#{mod_name}/#{path}", "#{@prov_path}/#{mod_name}/#{path}",args)
   end
 
   def copy_script(mod_name, path)
-    copy("#{@prov_path}/#{mod_name}/#{path}","#{@home_path}/scripts/#{mod_name}/#{path}")
+    dest = "#{@home_path}/scripts/#{mod_name}/#{path}"
+    copy("#{@prov_path}/#{mod_name}/#{path}",dest)
+    @vagrant.vm.provision path, type:"shell", inline: "chmod -R +x #{dest}"
   end
 
   def copy_vault(mod_name, path)

@@ -1,6 +1,11 @@
 #!/bin/sh
 
+
+add-apt-repository ppa:longsleep/golang-backports
+apt-get update
 apt-get install -y golang-go
-mkdir /home/vagrant/go
-echo 'export GOPATH=/home/vagrant/go' >> /home/vagrant/.bashrc
-echo 'export PATH=$PATH:$GOPATH/bin' >> /home/vagrant/.bashrc
+
+mkdir "$HOME/go"
+
+echo "export GOPATH=$HOME/go" >> "$HOME/.bashrc"
+echo "export PATH=\$PATH:\$GOPATH/bin" >> "$HOME/.bashrc"

@@ -1,2 +1,10 @@
 #!/bin/sh
-tar -czvf /home/vagrant/common/gui-config/config.tar.gz /home/vagrant/.config /usr/share/icons /usr/share/themes
+mkdir -p "$HOME/configs/xfce/"
+tar -czvf \
+  "$HOME/configs/xfce/config.tar.gz" \
+  "$HOME/.config/user-dirs.dirs" \
+  "$HOME/.config/user-dirs.locale" \
+  "$HOME/.config/xfce4" \
+  /usr/share/icons \
+  /usr/share/themes
+

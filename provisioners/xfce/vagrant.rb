@@ -7,7 +7,7 @@ def xfce_install(helper)
   helper.copy_script(modname, "backup.sh")
 
   helper.run_script(modname, "install.sh")
-  helper.run_script(modname, "restore.sh")
+  #helper.run_script(modname, "restore.sh")
 
   helper.vb do |vb|
     #   # Display the VirtualBox GUI when booting the machine
@@ -17,5 +17,6 @@ def xfce_install(helper)
     if vb.memory.to_i < 4096
       vb.memory = "4096"
     end
+    vb.customize ["modifyvm", :id, "--vram", "96"]
   end
 end
