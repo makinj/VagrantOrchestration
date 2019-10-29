@@ -1,6 +1,6 @@
 #!/bin/sh
 mkdir -p "$HOME/configs/xfce/"
-tar -czvf \
+tar -czf \
   "$HOME/configs/xfce/config.tar.gz" \
   "$HOME/.config/user-dirs.dirs" \
   "$HOME/.config/user-dirs.locale" \
