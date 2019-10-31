@@ -5,3 +5,9 @@ apt-get install -y apt-transport-https
 echo "deb https://download.sublimetext.com/ apt/stable/" | tee /etc/apt/sources.list.d/sublime-text.list
 apt-get update
 apt-get install -y sublime-text
+
+configtar="$HOME/configs/sublime/config.tar.gz"
+
+if [ -f "$configtar" ]; then
+  tar -xzf "$configtar" -C /
+fi

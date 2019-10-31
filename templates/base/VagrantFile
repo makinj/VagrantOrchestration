@@ -1,7 +1,7 @@
 # -*- mode: ruby -*-
 # vi: set ft=ruby :
 
-project_name = 'testing'
+project_name = 'projects/base_template'
 
 orch_path = ENV['VagrantOrchestration']
 config_path = ENV['VagrantConfigs']
@@ -9,7 +9,7 @@ vault_path = ENV['VagrantVault']
 workspace_path = ENV['VagrantWorkspace']
 
 
-project_path = "#{workspace_path}/projects/#{project_name}"
+project_path = "#{workspace_path}/#{project_name}"
 prov_path ="#{orch_path}/provisioners"
 
 Dir.glob("#{prov_path}/*/vagrant.rb") {|x| require(x)}
@@ -17,19 +17,21 @@ Dir.glob("#{prov_path}/*/vagrant.rb") {|x| require(x)}
 Vagrant.configure("2") do |vagrant|
 
   vagrant.vm.box = "ubuntu/xenial64"
-  #vagrant.vm.define = project_name
   vagrant.disksize.size = '128GB'
-  vagrant.vm.provider "virtualbox" do |vb|
-    vb.memory = "6144"
-  end
 
   helper = VagrantHelper.new(vagrant, prov_path, config_path, vault_path, project_path)
+
+  helper.vb do |vb|
+    vb.memory = "6144"
+    vb.name = project_name.gsub(/\//,'-')
+  end
 
   pre_install(helper)
   xfce_install(helper)
   sublime_install(helper)
   docker_install(helper)
   chrome_install(helper)
+  ssh_key_install(helper)
   post_install(helper)
 end
 
