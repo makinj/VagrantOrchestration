@@ -59,8 +59,8 @@ class VagrantHelper
   end
 
   def sync_dir(src,name)
-    src_windows = "C\:#{src}".gsub(/\//,'/')
-    @vagrant.vm.synced_folder src_windows, "/#{name}", automount:true
+    #src_windows = "C\:#{src}".gsub(/\//,'/')
+    @vagrant.vm.synced_folder src, "/#{name}", automount:true
 
     '''
     vb do |vbox|
