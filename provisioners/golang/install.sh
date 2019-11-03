@@ -6,7 +6,7 @@ apt-get update
 apt-get install -y golang-go
 
 mkdir "$HOME/go"
-chown -R "$HOME/go"
+chown -R vagrant:vagrant "$HOME/go"
 
 echo "export GOPATH=$HOME/go" >> "$HOME/.bashrc"
 echo "export PATH=\$PATH:\$GOPATH/bin" >> "$HOME/.bashrc"
