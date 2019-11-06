@@ -13,3 +13,8 @@ vagrant ssh -c "gzip '/tmp/config-$nonce.tar'"
 vagrant scp "default:/tmp/config-$nonce.tar.gz" "$1"
 
 
+
+
+
+
+
