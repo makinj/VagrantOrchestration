@@ -59,26 +59,30 @@ class VagrantHelper
   end
 
   def sync_dir(src,name)
-    #src_windows = "C\:#{src}".gsub(/\//,'/')
-    @vagrant.vm.synced_folder src, "/#{name}", automount:true
-
-    '''
-    vb do |vbox|
-      vbox.customize ["sharedfolder","add", :id, "--name", "project", "--hostpath", src_windows, "--automount"]
-    end
-    '''
-  end
-  def mount_project_dir()
     require 'fileutils'
-    FileUtils.mkdir_p @project_path
-    sync_dir(@project_path,"project")
+    FileUtils.mkdir_p src
+    @vagrant.vm.synced_folder src, "/#{name}", automount:true
   end
+
+  def mount_project_dir()
+    sync_dir("#{@project_path}/sf","project")
+  end
+
 end
 
 def pre_install(helper)
   modname="common"
   helper.run_script("common","pre_install.sh")
   helper.mount_project_dir()
+  helper.vb do |vbox|
+    loop do
+      begin
+        vbox.driver.execute(["usbfilter","remove", "0", "--target", vbox.to_s]
+      rescue
+        break
+      end
+    end
+  end
 end
 
 def post_install(helper)
