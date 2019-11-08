@@ -1,4 +1,5 @@
 #!/bin/sh
+
 resize2fs /dev/sda1
 apt-get update
 apt-get upgrade -y --with-new-pkgs
