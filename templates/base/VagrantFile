@@ -3,14 +3,6 @@
 
 project_name = 'boxes/base'
 
-orch_path = ENV['VagrantOrchestration']
-config_path = ENV['VagrantConfigs']
-vault_path = ENV['VagrantVault']
-workspace_path = ENV['VagrantWorkspace']
-
-
-project_path = "#{workspace_path}/#{project_name}"
-prov_path ="#{orch_path}/provisioners"
 
 Dir.glob("#{prov_path}/*/vagrant.rb") {|x| require(x)}
 

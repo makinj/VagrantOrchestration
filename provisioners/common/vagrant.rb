@@ -1,12 +1,17 @@
 class VagrantHelper
-  def initialize(vagrant, prov_path, config_path, vault_path, project_path)
-    # Instance variables
+  def initialize(vagrant, project_name)
     @vagrant = vagrant
-    @prov_path = prov_path
-    @config_path = config_path
-    @vault_path = vault_path
-    @project_path = project_path
+
+    @orch_path = ENV['VagrantOrchestration']
+    @config_path = ENV['VagrantConfigs']
+    @vault_path = ENV['VagrantVault']
+    @workspace_path = ENV['VagrantWorkspace']
+    @prov_path ="#{@orch_path}/provisioners"
+
+    @project_path = "#{@workspace_path}/#{@project_name}"
+
     @home_path = "/home/vagrant"
+
     @provider_callbacks = []
     @vagrant.vm.provider "virtualbox" do |vb|
       @provider_callbacks.each do |cb|
@@ -17,7 +22,7 @@ class VagrantHelper
 
 
   def run(name, path, args=[])
-    @vagrant.vm.provision name, type:"shell", path: path, args: args, env:{"HOME" => @home_path}
+    @vagrant.vm.provision name, privileged: false, type:"shell", path: path, args: args, env:{"HOME" => @home_path}
   end
 
   def copy(src, dst)
@@ -74,15 +79,6 @@ def pre_install(helper)
   modname="common"
   helper.run_script("common","pre_install.sh")
   helper.mount_project_dir()
-  helper.vb do |vbox|
-    loop do
-      begin
-        vbox.driver.execute(["usbfilter","remove", "0", "--target", vbox.to_s]
-      rescue
-        break
-      end
-    end
-  end
 end
 
 def post_install(helper)

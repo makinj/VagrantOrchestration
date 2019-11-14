@@ -1,12 +1,21 @@
 #!/bin/sh
 
 
-add-apt-repository ppa:longsleep/golang-backports
-apt-get update
-apt-get install -y golang-go
+sudo add-apt-repository ppa:longsleep/golang-backports
+sudo apt-get update
+sudo apt-get install -y golang-go
 
-mkdir "$HOME/go"
-chown -R vagrant:vagrant "$HOME/go"
+mkdir -p "$HOME/go"
 
-echo "export GOPATH=$HOME/go" >> "$HOME/.bashrc"
-echo "export PATH=\$PATH:\$GOPATH/bin" >> "$HOME/.bashrc"
+once="$HOME/.once/golang-profile"
+mkdir -p "$HOME/.once"
+if [ ! -f "$once" ]; then
+  echo "export GOPATH=$HOME/go" >> "$HOME/.bash_profile"
+  echo "export PATH=\$PATH:\$GOPATH/bin" >> "$HOME/.bash_profile"
+  touch "$once";
+fi
+. $HOME/.bash_profile
+go get -u golang.org/x/tools/cmd/goimports
+go get -u golang.org/x/tools/cmd/vet
+go get -u golang.org/x/tools/cmd/oracle
+go get -u golang.org/x/tools/cmd/godoc
