@@ -3,18 +3,16 @@
 
 project_name = 'boxes/base'
 
-
-Dir.glob("#{prov_path}/*/vagrant.rb") {|x| require(x)}
+Dir.glob("#{ENV['VagrantOrchestration']}/provisioners/*/vagrant.rb") {|x| require(x)}
 
 Vagrant.configure("2") do |vagrant|
 
-  vagrant.vm.box = "vmutti/base"
-  vagrant.disksize.size = '64GB'
+  vagrant.vm.box = "ubuntu/xenial64"
 
-  helper = VagrantHelper.new(vagrant, prov_path, config_path, vault_path, project_path)
+  helper = VagrantHelper.new(vagrant, project_name)
 
   helper.vb do |vb|
-    vb.memory = "6144"
+    vb.memory = "2048"
     vb.name = project_name.gsub(/\//,'-')
   end
 
