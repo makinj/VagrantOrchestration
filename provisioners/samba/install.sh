@@ -3,7 +3,7 @@
 sudo apt-get -y install samba
 
 
-configtar="$HOME/configs/smb/config.tar.gz"
+configtar="$HOME/configs/samba/config.tar.gz"
 
 if [ -f "$configtar" ]; then
   tar -xzf "$configtar" -C /
