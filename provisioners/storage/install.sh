@@ -1,8 +1,5 @@
 #!/bin/sh
 
-
-
-
 once="$HOME/.once/storage-mount"
 mkdir -p "$HOME/.once"
 if [ ! -f "$once" ]; then
