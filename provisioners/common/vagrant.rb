@@ -5,8 +5,10 @@ class VagrantHelper
     @orch_path = ENV['VagrantOrchestration']
     @config_path = ENV['VagrantConfigs']
     @vault_path = ENV['VagrantVault']
+    @storage_path = ENV['VagrantStorage']
     @workspace_path = ENV['VagrantWorkspace']
     @prov_path ="#{@orch_path}/provisioners"
+    @project_name = project_name
 
     @project_path = "#{@workspace_path}/#{@project_name}"
 
@@ -71,6 +73,20 @@ class VagrantHelper
 
   def mount_project_dir()
     sync_dir("#{@project_path}/sf","project")
+  end
+
+  def storage_drive(path, size=10240)
+    disk_path = "#{@storage_path}/#{@proj_name}/#{path}"
+    if !(File.exist?(disk_path) )#|| File.exist?(ph_path))
+      require 'fileutils'
+      FileUtils.mkdir_p File.dirname(disk_path)
+      vb() do |vbox|
+        vbox.customize ["createmedium", "disk", "--filename", disk_path, "--size", size.to_s]
+      end
+    end
+    vb() do |vbox|
+      vbox.customize ["storageattach", :id, "--storagectl","SCSI","--port","2","--type","hdd", "--medium",disk_path]
+    end
   end
 
 end
