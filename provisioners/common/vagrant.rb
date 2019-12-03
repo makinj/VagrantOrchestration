@@ -92,9 +92,15 @@ class VagrantHelper
 end
 
 def pre_install(helper)
+
   modname="common"
   helper.run_script("common","pre_install.sh")
   helper.mount_project_dir()
+  helper.vb() do |vb|
+    vb.customize ["modifyvm", :id, "--usb", "on"]
+    vb.customize ["modifyvm", :id, "--usbehci", "on"]
+    vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+  end
 end
 
 def post_install(helper)

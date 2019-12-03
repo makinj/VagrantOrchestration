@@ -12,7 +12,7 @@ if [ ! -f "$once" ]; then
   echo 'if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then exec startx; fi' >> "$HOME/.bash_profile"
   touch "$once";
 fi
-sudo wget --quiet https://picsum.photos/1920/1200 -O /usr/share/backgrounds/xfce/xfce-blue.jpg
+sudo wget --quiet https://picsum.photos/1920/1200 -O /usr/share/images/desktop-base/default
 sudo chmod 644 /usr/share/backgrounds/xfce/xfce-blue.jpg
 
 if [ -f "$configtar" ]; then
