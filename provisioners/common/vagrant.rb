@@ -54,7 +54,14 @@ class VagrantHelper
     if path=="/" or path==""
       dest = "#{@home_path}/vault/"
     end
+
     copy(src,dest)
+
+    if path=="/" or path==""
+      @vagrant.vm.provision "shell", privileged: true, inline: "chmod -R 600 '#{@home_path}/vault/#{mod_name}/'", env:{"HOME" => @home_path}
+    else
+      @vagrant.vm.provision "shell", privileged: true, inline: "chmod -R 600 #{dest}", env:{"HOME" => @home_path}
+    end
   end
 
   def vm()
@@ -73,6 +80,8 @@ class VagrantHelper
 
   def mount_project_dir()
     sync_dir("#{@project_path}/sf","project")
+    @vagrant.vm.provision "shell", inline: "ln -f -s /media/sf_project ~/project", env:{"HOME" => @home_path}
+
   end
 
   def storage_drive(path, size=10240)
