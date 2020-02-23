@@ -81,12 +81,11 @@ class VagrantHelper
   def mount_project_dir()
     sync_dir("#{@project_path}/sf","project")
     @vagrant.vm.provision "shell", inline: "ln -f -s /media/sf_project ~/project", env:{"HOME" => @home_path}
-
   end
 
   def storage_drive(path, size=10240)
     disk_path = "#{@storage_path}/#{@project_name}/#{path}"
-    if !(File.exist?(disk_path) )#|| File.exist?(ph_path))
+    if !(File.exist?(disk_path) )
       require 'fileutils'
       FileUtils.mkdir_p File.dirname(disk_path)
       vb() do |vbox|
