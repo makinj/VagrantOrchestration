@@ -86,7 +86,7 @@ class VagrantHelper
 
   def storage_drive(path, size=10240)
     disk_path = "#{@storage_path}/#{@project_name}/#{path}"
-    if !(File.exist?(disk_path) )#|| File.exist?(ph_path))
+    if !(File.exist?(disk_path) )
       require 'fileutils'
       FileUtils.mkdir_p File.dirname(disk_path)
       vb() do |vbox|
