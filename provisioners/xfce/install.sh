@@ -16,4 +16,5 @@ if [ -f "$configtar" ]; then
 fi
 
 sudo wget --quiet https://picsum.photos/1920/1200 -O /usr/share/backgrounds/xfce/xfce-blue.jpg
-sudo chmod 644 /usr/share/backgrounds/xfce/xfce-blue.jpg
+sudo wget --quiet https://picsum.photos/1920/1200 -O /usr/share/backgrounds/xfce/xfce-teal.jpg
+sudo chmod 644 /usr/share/backgrounds/xfce/xfce-blue.jpg /usr/share/backgrounds/xfce/xfce-teal.jpg
