@@ -80,7 +80,7 @@ class VagrantHelper
 
   def mount_project_dir()
     sync_dir("#{@project_path}/sf","project")
-    @vagrant.vm.provision "shell", inline: "ln -f -s /media/sf_project ~/project", env:{"HOME" => @home_path}
+    @vagrant.vm.provision "shell", inline: "ln -f -s /media/sf_project ~/project || echo 'failed to link project dir'", env:{"HOME" => @home_path}
   end
 
   def storage_drive(path, size=10240)
