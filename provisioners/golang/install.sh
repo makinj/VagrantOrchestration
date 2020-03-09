@@ -1,20 +1,27 @@
-#!/bin/sh
+#!/bin/bash
 
+# wget --quiet https://dl.google.com/go/go1.12.linux-amd64.tar.gz -O /tmp/
+# sudo tar -C /usr/local -xzf /tmp/go1.12.linux-amd64.tar.gz
 
-sudo add-apt-repository ppa:longsleep/golang-backports
-sudo apt-get update
-sudo apt-get install -y golang-go
 
 mkdir -p "$HOME/go"
 
 once="$HOME/.once/golang-profile"
 mkdir -p "$HOME/.once"
 if [ ! -f "$once" ]; then
-  echo "export GOPATH=$HOME/go" >> "$HOME/.bash_profile"
-  echo "export PATH=\$PATH:\$GOPATH/bin" >> "$HOME/.bash_profile"
+  sudo add-apt-repository ppa:longsleep/golang-backports
+  echo "export PATH=\$PATH:/usr/local/go/bin:\$GOPATH/bin" >> "$HOME/.zshrc"
+  echo "export PATH=\$PATH:/usr/local/go/bin:\$GOPATH/bin" >> "$HOME/.bash_profile"
   touch "$once";
 fi
+
+sudo apt-get update
+sudo apt-get install -y golang-go
+
 . $HOME/.bash_profile
+
+go env -w GOPATH=$HOME/go
+
 go get -u golang.org/x/tools/cmd/goimports
 go get -u golang.org/x/tools/cmd/vet
 go get -u golang.org/x/tools/cmd/oracle

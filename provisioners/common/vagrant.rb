@@ -76,6 +76,7 @@ class VagrantHelper
     require 'fileutils'
     FileUtils.mkdir_p src
     @vagrant.vm.synced_folder src, "/#{name}", automount:true
+    #@vagrant.vm.synced_folder src, "/home/vagrant/#{name}", automount:true
   end
 
   def mount_project_dir()
@@ -108,7 +109,7 @@ def pre_install(helper)
   helper.vb() do |vb|
     vb.customize ["modifyvm", :id, "--usb", "on"]
     vb.customize ["modifyvm", :id, "--usbehci", "on"]
-    vb.customize ["modifyvm", :id, "--clipboard", "bidirectional"]
+    vb.customize ["modifyvm", :id, "--clipboard-mode", "bidirectional"]
   end
 end
 

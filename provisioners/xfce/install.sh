@@ -8,6 +8,7 @@ once="$HOME/.once/xfce-bashprofile"
 mkdir -p "$HOME/.once"
 if [ ! -f "$once" ]; then
   echo 'if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then exec startx; fi' >> "$HOME/.bash_profile"
+  echo 'if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then exec startx; fi' >> "$HOME/.zprofile"
   touch "$once";
 fi
 
