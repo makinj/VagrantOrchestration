@@ -82,7 +82,7 @@ class VagrantHelper
   def mount_project_dir()
     sync_dir("#{@project_path}/sf","project")
 
-    @vagrant.vm.provision "shell", inline: "if [ ! -h  $HOME/project ]; then ln -f -s /media/sf_project ~/project;  fi", env:{"HOME" => @home_path}
+    @vagrant.vm.provision "shell", inline: "if [ ! -e  $HOME/project ]; then ln -f -s /media/sf_project ~/project;  fi", env:{"HOME" => @home_path}
   end
 
   def storage_drive(path, size=10240)
