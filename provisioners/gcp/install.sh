@@ -9,3 +9,8 @@ curl --silent https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-k
 
 # Update the package list and install the Cloud SDK
 sudo apt update && sudo apt-get install -y google-cloud-sdk
+
+virtualenv -p python3 scoutsuite
+. scoutsuite/bin/activate
+pip3 install scoutsuite
+deactivate
