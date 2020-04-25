@@ -9,3 +9,4 @@ sudo apt-get install -y linux-modules-extra-$(uname -r) || echo "unable to get l
 sudo apt autoremove -y
 
 sudo -H pip3 install virtualenv
+sudo pip install codename

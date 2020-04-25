@@ -17,16 +17,7 @@ Vagrant.configure("2") do |vagrant|
   end
 
   pre_install(helper)
-  #autochrome_install(helper)
-  #chrome_install(helper)
-  #docker_install(helper)
-  #ethereum_install(helper)
-  #golang_install(helper)
-  #katoolin_install(helper)
-  #samba_install(helper)
-  #ssh_key_install(helper)
-  #sublime_install(helper)
-  #xfce_install(helper)
+  zsh_install(helper)
   post_install(helper)
 end
 

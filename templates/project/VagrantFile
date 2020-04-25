@@ -1,0 +1,44 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+project_name = '___PROJNAME___'
+
+if project_name.include? "___"
+  abort("you were probably supposed to replace project_name")
+end
+
+Dir.glob("#{ENV['VagrantOrchestration']}/provisioners/*/vagrant.rb") {|x| require(x)}
+
+Vagrant.configure("2") do |vagrant|
+
+  vagrant.vm.box = "vmutti/gui"
+
+  helper = VagrantHelper.new(vagrant, project_name)
+
+  helper.vb do |vb|
+    vb.memory = "2048"
+    vb.name = project_name.gsub(/\//,'-')
+  end
+
+  pre_install(helper)
+  xfce_install(helper)
+  zsh_install(helper)
+
+  #autochrome_install(helper)
+  #aws_install(helper)
+  #burp_install(helper)
+  chrome_install(helper)
+  #clasp_install(helper)
+  #docker_install(helper)
+  #ethereum_install(helper)
+  #gcp_install(helper)
+  #golang_install(helper)
+  #k8s_install(helper)
+  #katoolin_install(helper)
+  #ssh_key_install(helper)
+  sublime_install(helper)
+  #terraform_install(helper)
+
+  post_install(helper)
+end
+

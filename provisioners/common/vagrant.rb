@@ -23,6 +23,7 @@ class VagrantHelper
   end
 
 
+
   def run(name, path, args=[])
     @vagrant.vm.provision name, privileged: false, type:"shell", path: path, args: args, env:{"HOME" => @home_path}
   end
@@ -48,6 +49,7 @@ class VagrantHelper
     run("#{mod_name}/#{path}", "#{@prov_path}/#{mod_name}/#{path}",args)
   end
 
+=begin
   def copy_vault(mod_name, path)
     src="#{@vault_path}/#{mod_name}/#{path}"
     dest = "#{@home_path}/vault/#{mod_name}/#{path}"
@@ -63,7 +65,7 @@ class VagrantHelper
       @vagrant.vm.provision "shell", privileged: true, inline: "chmod -R 600 #{dest}", env:{"HOME" => @home_path}
     end
   end
-
+=end
   def vm()
     return @vagrant.vm
   end

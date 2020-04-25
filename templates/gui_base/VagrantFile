@@ -1,0 +1,26 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+project_name = 'boxes/gui'
+
+Dir.glob("#{ENV['VagrantOrchestration']}/provisioners/*/vagrant.rb") {|x| require(x)}
+
+Vagrant.configure("2") do |vagrant|
+
+  vagrant.vm.box = "vmutti/base"
+
+  helper = VagrantHelper.new(vagrant, project_name)
+
+  helper.vb do |vb|
+    vb.memory = "2048"
+    vb.name = project_name.gsub(/\//,'-')
+  end
+
+  pre_install(helper)
+  xfce_install(helper)
+  chrome_install(helper)
+  sublime_install(helper)
+  zsh_install(helper)
+  post_install(helper)
+end
+

@@ -11,4 +11,4 @@ vagrant ssh -c "mkdir -p \"\$HOME/vault/$mod/\""
 vagrant scp "$nonce.zip" "default:/home/vagrant/vault/$mod/$tgt_keys.zip"
 vagrant ssh -c "unzip \"\$HOME/vault/$mod/$tgt_keys.zip\" -d ~/.ssh/"
 
-#rm "$nonce.zip"
+rm "$nonce.zip"
